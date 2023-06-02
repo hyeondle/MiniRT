@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:00:16 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/02 16:41:43 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 05:20:12 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 # include "vector.h"
 
 typedef int	t_object_type;
-#  define SP 0
+#  define	LIGHT_POINT	0
+#  define	SP			1
 
 /*			object_list					*/
 typedef struct	s_object
 {
 	t_object_type   type;
 	void            *element;
+	t_vector		albedo;
 	void            *next;
 }				t_object;
 
@@ -33,11 +35,19 @@ typedef struct	s_sphere
 	double      radius2;
 }				t_sphere;
 
+typedef struct	s_light
+{
+	t_vector	origin;
+	t_vector	color;
+	double		brightness;
+}				t_light;
+
 /*			object_list_control			*/
-t_object    *object(t_object_type type, void *element);
+t_object    *object(t_object_type type, void *element, t_vector albedo);
 void        oadd(t_object **list, t_object *newo);
 t_object    *olast(t_object *list);
 /*			objects						*/
+t_light     *light_point(t_vector origin, t_vector color, double brightness);
 t_sphere    *sphere(t_vector center, double radius);
 
 #endif

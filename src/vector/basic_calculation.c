@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 14:39:50 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/02 16:41:37 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 01:48:34 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ t_vector	vminus(t_vector v1, t_vector v2)
 	v.y = v1.y - v2.y;
 	v.z = v1.z - v2.z;
 
-	// v.x = v2.x - v1.x;
-	// v.y = v2.y - v1.y;
-	// v.z = v2.z - v1.z;
 	return (v);
 }
 

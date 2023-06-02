@@ -6,14 +6,14 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:06:10 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/02 16:41:40 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 02:58:23 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/object.h"
 #include <stdlib.h>
 
-t_object    *object(t_object_type type, void *element)
+t_object    *object(t_object_type type, void *element, t_vector albedo)
 {
     t_object    *new;
 
@@ -21,6 +21,7 @@ t_object    *object(t_object_type type, void *element)
         return (NULL);
     new->type = type;
     new->element = element;
+    new->albedo = albedo;
     new->next = NULL;
     return (new);
 }

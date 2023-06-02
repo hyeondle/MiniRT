@@ -6,36 +6,31 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:08:55 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/02 16:41:40 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 05:01:19 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/map.h"
+#include "../../inc/trace.h"
+#include <stdlib.h>
 
-t_canvas	canvas(int width, int height)
+t_map	*map_init(void)
 {
-	t_canvas	canvas;
+	t_map		*map;
+	t_object	*world;
+	t_object	*light;
+	double		ka;
 
-	canvas.width = width;
-	canvas.height = height;
-	canvas.aspect_ratio = (double)width / (double)height;
-
-	return (canvas);
-}
-
-t_camera	camera(t_canvas *canvas, t_vector origin)
-{
-	t_camera	camera;
-	double		focal_length;
-
-	camera.origin = origin;
-	camera.viewport_height = 2.0;
-	camera.viewport_width = camera.viewport_height * canvas->aspect_ratio;
-	camera.focal_length = 1.0;
-	camera.horizontal = vector(camera.viewport_width, 0, 0);
-	camera.vertical = vector(0, camera.viewport_height, 0);
-	camera.left_bottom = vminus(vminus(vminus(camera.origin, \
-		vdivide(camera.horizontal, 2)), vdivide(camera.vertical, 2)),
-		vector(0, 0, camera.focal_length));
-	return (camera);
+	if(!(map = (t_map *)malloc(sizeof(t_map))))
+		return (NULL);
+	map->canvas = canvas(400, 300);
+	map->camera = camera(&map->canvas, vector(0, 0, 0));
+	world = object(SP, sphere(vector(-2, 0, -5), 2), vector(0.5, 0, 0));
+	oadd(&world, object(SP, sphere(vector(2, 0, -5), 2), vector(0, 0.5, 0)));
+	oadd(&world, object(SP, sphere(vector(0, -1000, 0), 995), vector(1, 1, 1)));
+	map->world = world;
+	light = object(LIGHT_POINT, light_point(vector(0, 20, 0), vector(1, 1, 1), 0.5), vector(0, 0, 0));
+	map->light = light;
+	ka = 0.1;
+	map->ambient = vmult(vector(1, 1, 1), ka);
+	return (map);
 }
