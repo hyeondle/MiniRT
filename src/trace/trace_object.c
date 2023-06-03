@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:31:26 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 17:59:19 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:18:48 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_hit_record	record_init(void)
 {
 	t_hit_record	record;
 
-	record.tmin = EPSILON;
-	record.tmax = INFINITY;
+	record.tmin = EPSILON;	//극소치
+	record.tmax = INFINITY;	//극대치
 	return (record);
 }
 

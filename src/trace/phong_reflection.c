@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 03:50:50 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 07:09:46 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:23:01 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ t_vector	phong_lighting(t_map *map)
 
 	light_color = vector(0, 0, 0);
 	light = map->light;
-	while (light)
+	while (light)	//각 광원마다 반사 계산
 	{
 		if (light->type == LIGHT_POINT)
 			light_color = vplus(light_color, point_light_get(map, light->element));
 		light = light->next;
 	}
-	light_color = vplus(light_color, map->ambient);
-	return (vmin(vmult_2(light_color, map->rec.albedo), vector(1, 1, 1)));
+	light_color = vplus(light_color, map->ambient);	//ambient 합
+	return (vmin(vmult_2(light_color, map->rec.albedo), vector(1, 1, 1))); // 광원의 합이 1 넘을 경우 1로 내려줌(맥시멈 고정)
 }
 
 t_vector	point_light_get(t_map *map, t_light *light)

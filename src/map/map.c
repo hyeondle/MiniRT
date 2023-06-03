@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:08:55 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 17:59:19 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:47:52 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_map	*map_init(void)
 	if(!(map = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);
 	map->canvas = canvas(1280, 720);
-	map->camera = camera(&map->canvas, vector(0, 10, 20));
+	map->camera = camera(&map->canvas, vector(0, 3, 5));
 	world = object(SP, sphere(vector(-2, 0, -5), 2), vector(0.5, 0, 0));
 	oadd(&world, object(SP, sphere(vector(2, 0, -5), 1), vector(0, 0.5, 0)));
 	oadd(&world, object(SP, sphere(vector(1, -1, -7), 2), vector(0, 0, 0.5)));
@@ -34,7 +34,7 @@ t_map	*map_init(void)
 	oadd(&world, object(CY, cylinder(vector(10, 10, -15), vector(0.3, 1, 0), 5, 14), vector(0.1, 0.45, 0.6)));
 	oadd(&world, object(CY, cylinder(vector(-20, 10, -15), vector(1, 0, 0), 3.5, 20), vector(0.5, 0.45, 0.6)));
 	map->world = world;
-	light = object(LIGHT_POINT, light_point(vector(0, 20, 20), vector(1, 1, 1), 0.5), vector(0, 0, 0));
+	light = object(LIGHT_POINT, light_point(vector(50, 50, 50), vector(1, 1, 1), 0.8), vector(0, 0, 0));
 	map->light = light;
 	ka = 0.2;
 	map->ambient = vmult(vector(1, 1, 1), ka);

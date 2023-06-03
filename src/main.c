@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:32:59 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 03:36:11 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:18:21 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int main(void)
 		{
 			u = (double)i / (map->canvas.width - 1);
 			v = (double)j / (map->canvas.height - 1);
-			map->ray = ray_primary(&map->camera, u, v);
-			pixel_color = ray_color(map);
+			map->ray = ray_primary(&map->camera, u, v); //viewport의 각 픽셀에 쏠 방향벡터 구하기
+			pixel_color = ray_color(map); //방향벡터로 나가는 광선 추적
 			write_color(pixel_color);
 			++i;
 		}

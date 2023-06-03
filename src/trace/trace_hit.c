@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:29:25 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 17:48:12 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 22:21:09 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool      hit(t_object *world, t_ray *ray, t_hit_record *rec)
 
 	temp_rec = *rec;
 	hit_anything = FALSE;
-	while(world)
+	while(world)	//world에 저장된 물체를 전부 돌아가며 광선에 부딪히는지 체크
 	{
 		if (hit_obj(world, ray, &temp_rec))
 		{
@@ -32,7 +32,7 @@ t_bool      hit(t_object *world, t_ray *ray, t_hit_record *rec)
 	return (hit_anything);
 }
 
-t_bool	hit_obj(t_object *world, t_ray *ray, t_hit_record *rec)
+t_bool	hit_obj(t_object *world, t_ray *ray, t_hit_record *rec) //각 종류별로 체크
 {
 	t_bool	hit_result;
 
@@ -46,7 +46,7 @@ t_bool	hit_obj(t_object *world, t_ray *ray, t_hit_record *rec)
 	return (hit_result);
 }
 
-void    set_face_normal(t_ray *r, t_hit_record *rec)
+void    set_face_normal(t_ray *r, t_hit_record *rec) // 법선벡터의 방향 조정
 {
 	rec->front_face = vdot(r->d_unit, rec->normal) < 0;
 	if (rec->front_face)
