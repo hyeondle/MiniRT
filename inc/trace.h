@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:16:08 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 05:00:20 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:48:39 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_bool			hit_obj(t_object *world, t_ray *ray, t_hit_record *rec);
 void			set_face_normal(t_ray *r, t_hit_record *rec);
 /*			hit_object		*/
 t_bool			hit_sphere(t_object *sp, t_ray *ray, t_hit_record *rec);
+t_bool			hit_plane(t_object *obj, t_ray *ray, t_hit_record *rec);
+t_bool			hit_cylinder(t_object *obj, t_ray *ray, t_hit_record *rec);
 /*			phong_lighting	*/
 t_vector		phong_lighting(t_map *map); // ambient
 t_vector		point_light_get(t_map *map, t_light *light); // diffuse

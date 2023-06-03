@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:16:42 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 03:43:54 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:45:33 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ t_vector	ray_color(t_map	*map)
 	else
 	{
 		t = 0.5 * (map->ray.d_unit.y + 1.0);
-		return (vplus(vmult(vector(1, 1, 1), 1.0 - t), vmult(vector(0.5, 0.7, 1.0), t)));
+		return (vplus(vmult(vector(1, 1, 1), 1.0 - t), vmult(vector(0.0, 0.0, 0.0), t)));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 03:50:50 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 05:00:05 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 07:09:46 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_vector	point_light_get(t_map *map, t_light *light)
 	t_vector	view_direction;
 	t_vector	reflect_direction;
 	double		spec;
-	double		ksn; //shininess value
+	double		ksn; //shineness value
 	double		ks;	//specular strength
 	double		brightness;
 

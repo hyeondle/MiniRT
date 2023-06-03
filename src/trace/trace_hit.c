@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:29:25 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 03:51:04 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:48:12 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ t_bool	hit_obj(t_object *world, t_ray *ray, t_hit_record *rec)
 	hit_result = FALSE;
 	if (world->type == SP)
 		hit_result = hit_sphere(world, ray, rec);
+	else if (world->type == PL)
+		hit_result = hit_plane(world, ray, rec);
+	else if (world->type == CY)
+		hit_result = hit_cylinder(world, ray, rec);
 	return (hit_result);
 }
 

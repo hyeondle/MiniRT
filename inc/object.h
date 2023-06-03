@@ -6,7 +6,7 @@
 /*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 15:00:16 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/03 05:20:12 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:46:13 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 typedef int	t_object_type;
 #  define	LIGHT_POINT	0
 #  define	SP			1
-
+#  define	PL			2
+#  define	CY			3
 /*			object_list					*/
 typedef struct	s_object
 {
@@ -42,6 +43,20 @@ typedef struct	s_light
 	double		brightness;
 }				t_light;
 
+typedef struct	s_plane
+{
+	t_vector	origin;
+	t_vector	normal;
+}				t_plane;
+
+typedef struct	s_cylinder
+{
+	t_vector	origin;
+	t_vector	axis;
+	double		radius;
+	double		height;
+}				t_cylinder;
+
 /*			object_list_control			*/
 t_object    *object(t_object_type type, void *element, t_vector albedo);
 void        oadd(t_object **list, t_object *newo);
@@ -49,5 +64,7 @@ t_object    *olast(t_object *list);
 /*			objects						*/
 t_light     *light_point(t_vector origin, t_vector color, double brightness);
 t_sphere    *sphere(t_vector center, double radius);
+t_plane     *plane(t_vector origin, t_vector normal);
+t_cylinder  *cylinder(t_vector origin, t_vector axis, double radius, double height);
 
 #endif
