@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeondle <hyeondle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:12:59 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/06/02 16:41:35 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/04 05:41:54 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/vector.h"
+#include "../../inc/viewport.h"
+#include <math.h>
 
 t_ray	ray(t_vector o, t_vector d)
 {
