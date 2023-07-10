@@ -6,7 +6,7 @@
 /*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 02:27:46 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/07/07 08:26:04 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:00:58 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./libft/mylibft.h"
+#include "vector.h"
+#include "map.h"
+#include "trace.h"
+/*										*/
+/*		basic structure for parser		*/
+/*										*/
 
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-	double	z;
-}			t_vector;
-
-typedef struct s_ambient
+typedef struct s_ambient2
 {
 	double		ratio;
 	t_vector	color;
-}				t_ambient;
+}				t_ambient2;
 
-typedef struct s_camera
+typedef struct s_camera2
 {
 	t_vector	origin;
 	t_vector	orientation;
 	double		fov;
-}				t_camera;
+}				t_camera2;
 
-typedef struct	s_light
+typedef struct	s_light2
 {
 	t_vector	point;
 	double		brightness;
 	t_vector	color;
-}				t_light;
+}				t_light2;
 
-typedef struct 	s_sphere
+typedef struct 	s_sphere2
 {
 	t_vector	origin;
 	double		diameter;
 	t_vector	color;
-}				t_sphere;
+}				t_sphere2;
 
-typedef struct	s_plane
+typedef struct	s_plane2
 {
 	t_vector	point;
 	t_vector	normal;
 	t_vector	color;
-}				t_plane;
+}				t_plane2;
 
-typedef struct	s_cylinder
+typedef struct	s_cylinder2
 {
 	t_vector	origin;
 	t_vector	axis;
 	double		diameter;
 	double		height;
 	t_vector	color;
-}				t_cylinder;
+}				t_cylinder2;
 
 typedef struct	s_setting
 {
@@ -71,17 +70,6 @@ typedef struct	s_setting
 	void				*object;
 	struct s_setting	*next;
 }						t_setting;
-
-t_vector	vector(double x, double y, double z)
-{
-	t_vector	v;
-
-	v.x = x;
-	v.y = y;
-	v.z = z;
-
-	return (v);
-}
 
 t_vector	mv(char *dot)
 {
@@ -112,22 +100,22 @@ t_setting	*init_setting(void)
 	return (set);
 }
 
-t_ambient	*i_ambient(char **info)
+t_ambient2	*i_ambient(char **info)
 {
-	t_ambient *ambient;
+	t_ambient2 *ambient;
 
-	ambient = (t_ambient *)malloc(sizeof(t_ambient));
+	ambient = (t_ambient2 *)malloc(sizeof(t_ambient2));
 	ambient->ratio = atof(info[1]);
 	ambient->color = mv(info[2]);
 
 	return (ambient);
 }
 
-t_camera	*i_camera(char **info)
+t_camera2	*i_camera(char **info)
 {
-	t_camera	*camera;
+	t_camera2	*camera;
 
-	camera = (t_camera *)malloc(sizeof(t_camera));
+	camera = (t_camera2 *)malloc(sizeof(t_camera2));
 	camera->origin = mv(info[1]);
 	camera->orientation = mv(info[2]);
 	camera->fov = atof(info[3]);
@@ -135,11 +123,11 @@ t_camera	*i_camera(char **info)
 	return (camera);
 }
 
-t_light	*i_light(char **info)
+t_light2	*i_light(char **info)
 {
-	t_light	*light;
+	t_light2	*light;
 
-	light = (t_light *)malloc(sizeof(t_light));
+	light = (t_light2 *)malloc(sizeof(t_light2));
 	light->point = mv(info[1]);
 	light->brightness = atof(info[2]);
 	light->color = mv(info[3]);
@@ -147,11 +135,11 @@ t_light	*i_light(char **info)
 	return (light);
 }
 
-t_sphere	*i_sphere(char **info)
+t_sphere2	*i_sphere(char **info)
 {
-	t_sphere *sphere;
+	t_sphere2 *sphere;
 
-	sphere = (t_sphere *)malloc(sizeof(t_sphere));
+	sphere = (t_sphere2 *)malloc(sizeof(t_sphere2));
 	sphere->origin = mv(info[1]);
 	sphere->diameter = atof(info[2]);
 	sphere->color = mv(info[3]);
@@ -159,11 +147,11 @@ t_sphere	*i_sphere(char **info)
 	return (sphere);
 }
 
-t_plane	*i_plane(char **info)
+t_plane2	*i_plane(char **info)
 {
-	t_plane	*plane;
+	t_plane2	*plane;
 
-	plane = (t_plane *)malloc(sizeof(t_plane));
+	plane = (t_plane2 *)malloc(sizeof(t_plane2));
 	plane->point = mv(info[1]);
 	plane->normal = mv(info[2]);
 	plane->color = mv(info[3]);
@@ -171,11 +159,11 @@ t_plane	*i_plane(char **info)
 	return (plane);
 }
 
-t_cylinder	*i_cylinder(char **info)
+t_cylinder2	*i_cylinder(char **info)
 {
-	t_cylinder	*cylinder;
+	t_cylinder2	*cylinder;
 
-	cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
+	cylinder = (t_cylinder2 *)malloc(sizeof(t_cylinder2));
 	cylinder->origin = mv(info[1]);
 	cylinder->axis = mv(info[2]);
 	cylinder->diameter = atof(info[3]);
@@ -211,7 +199,7 @@ void	parse(t_setting *set, char *line)
 	t_setting	*temp;
 	char		**info;
 
-	while (set->next == NULL)
+	while (set->next != NULL)
 		set = set->next;
 	if (set->type == NULL && set->object == NULL)
 		temp = set;
@@ -226,8 +214,8 @@ void	parse(t_setting *set, char *line)
 		printf("file error\n");
 		exit(1);
 	}
-	set->type = ft_strdup(info[0]);
-	set->object = object_set(info);
+	temp->type = ft_strdup(info[0]);
+	temp->object = object_set(info);
 	if (set->object == NULL)
 	{
 		printf("file error\n");
@@ -235,7 +223,7 @@ void	parse(t_setting *set, char *line)
 	}
 }
 
-int main(int argc, char **argv)
+t_setting *parser(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
@@ -260,6 +248,20 @@ int main(int argc, char **argv)
 		parse(set, line);
 		line = get_next_line(fd);
 	}
+	return (set);
+}
+
+t_map	*map_init2(t_setting *set)
+{
+	
+}
+
+int	main(int argc, char **argv)
+{
+	t_setting	*set;
+	t_map		*map;
+	set = parser(argc, argv);
+	map = map_init2(set);
 }
 
 //need to make atof()
