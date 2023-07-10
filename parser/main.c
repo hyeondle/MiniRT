@@ -6,7 +6,7 @@
 /*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 02:27:46 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/07/10 13:00:58 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:35:29 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,13 +253,27 @@ t_setting *parser(int argc, char **argv)
 
 t_map	*map_init2(t_setting *set)
 {
-	
+	t_map	*map;
+	t_setting	*set_t;
+
+	set_t = set;
+	if(!(map = (t_map *)malloc(sizeof(t_map))))
+		return (NULL);
+	map->canvas = canvas(1280, 720);
+	while (set_t->next != NULL)
+	{
+		if (set_t->type[0] == 'C') // camera -- 1 ,
+		//light, object --> many
+		// abient -> diff
+
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	t_setting	*set;
 	t_map		*map;
+
 	set = parser(argc, argv);
 	map = map_init2(set);
 }
