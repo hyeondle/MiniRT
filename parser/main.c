@@ -6,7 +6,7 @@
 /*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 02:27:46 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/07/10 21:35:29 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:17:51 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,10 +262,17 @@ t_map	*map_init2(t_setting *set)
 	map->canvas = canvas(1280, 720);
 	while (set_t->next != NULL)
 	{
-		if (set_t->type[0] == 'C') // camera -- 1 ,
+		if (set_t->type[0] == 'C')
+			map->camera = set_camera(set_t); // camera -- 1 ,
+		else if (set->type[0] == 'A')
+			map->ambient = set_ambient(set_t);
+		else if (set->type[0] == 'L')
+			map->light = set_light(set_t);
+		else
+			map->world = set_world(set_t);
+		set_t = set_t->next;
 		//light, object --> many
 		// abient -> diff
-
 	}
 }
 

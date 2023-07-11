@@ -6,7 +6,7 @@
 /*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:08:55 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/07/04 05:41:48 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:17:50 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_map	*map_init(void)
 	map->world = world;
 	light = object(LIGHT_POINT, light_point(vector(50, 50, 50), vector(1, 1, 1), 0.5), vector(0, 0, 0));
 	map->light = light;
-	ka = 0.2;
+	ka = 0.2; // abmient brightness
 	map->ambient = vmult(vector(1, 1, 1), ka);
 	return (map);
 }
