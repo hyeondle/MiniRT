@@ -6,7 +6,7 @@
 /*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 02:27:46 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/07/11 20:17:51 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/11 20:24:20 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ t_map	*map_init2(t_setting *set)
 		//light, object --> many
 		// abient -> diff
 	}
+	return (map);
 }
 
 int	main(int argc, char **argv)
@@ -283,6 +284,14 @@ int	main(int argc, char **argv)
 
 	set = parser(argc, argv);
 	map = map_init2(set);
+	//mlx init
+	while (1)
+	{
+		draw(map, window); //write_color -> draw pixel on mlx_window
+		//mlx_hook events
+		//mlx_loop
+	}
+	return (0);
 }
 
 //need to make atof()
