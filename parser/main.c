@@ -6,7 +6,7 @@
 /*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 02:27:46 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/07/12 08:04:08 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:48:19 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "vector.h"
 #include "map.h"
 #include "trace.h"
+#include "./minilibx/mlx.h"
+#include "window.h"
 /*										*/
 /*		basic structure for parser		*/
 /*										*/
@@ -418,20 +420,83 @@ t_map	*map_init2(t_setting *set)
 	return (map);
 }
 
+t_base	*base_init(t_canvas canvas)
+{
+	t_base	*base;
+
+	base = (t_base *)ft_calloc(sizeof(t_base));
+	if (!base)
+	{
+		printf("malloc error\n");
+		exit(1);
+	}
+	base->mlx = mlx_init();
+	base->win = mlx_new_window(base->mlx, canvas.width, canvas.height, "miniRT");
+	base->img = mlx_new_image(base->mlx, canvas.width, canvas.height);
+	base->addr = mlx_get_data_addr(base->img, &(base->bpp), \
+								&(base->size_line), &(base->endian));
+	if (!base->mlx || !base->win || !base->img || !base->addr)
+	{
+		printf("mlx init error\n");
+		exit(1);
+	}
+	return (base);
+}
+
+void	locate_pixel(t_base *base, int x, int y, int color)
+{
+	char	*pixel_address;
+
+	pixel_address = base->addr + (x * (base->bpp / 8) + y * base->size_line);
+	*(unsigned int *)pixel_address = color;
+}
+
+void	write_color(t_vector pixel_color, t_base *base, int x, int y)
+{
+	int	color;
+
+	color = ((int)(255.999 * pixel_color.x) << 16) + ((int)(255.999 * pixel_color.y) << 8) + (int)(255.999 * pixel_color.z);
+	locate_pixel(base, x, y, color);
+}
+
+void	draw(t_map *map, t_base *base)
+{
+	int	i;
+	int	j;
+	double	u;
+	double	v;
+	t_vector	pixel_color;
+	j = map->canvas.height - 1;
+	while (j >= 0)
+	{
+		i = 0;
+		while (i < map->canvas.width)
+		{
+			u = (double)i / (map->canvas.width - 1);
+			v = (double)j / (map->canvas.height - 1);
+			map->ray = ray_primary(&map->camera, u, v);
+			pixel_color = ray_color(map);
+			write_color(pixel_color, base, i, j);
+			++i;
+		}
+		--j;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_setting	*set;
 	t_map		*map;
+	t_base		*base;
 
 	set = parser(argc, argv);
 	map = map_init2(set);
+	base = base_init(map->canvas);
 	//mlx init
-	while (1)
-	{
-		draw(map, window); //write_color -> draw pixel on mlx_window
-		//mlx_hook events
-		//mlx_loop
-	}
+	draw(map, base); //write_color -> draw pixel on mlx_window
+	mlx_loop(base->mlx);
+	//mlx_hook events
+	//mlx_loop
 	return (0);
 }
 
