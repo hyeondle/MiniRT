@@ -6,7 +6,7 @@
 /*   By: hyeondle <st.linsio@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 02:27:46 by hyeondle          #+#    #+#             */
-/*   Updated: 2023/07/12 19:48:19 by hyeondle         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:49:39 by hyeondle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,6 +393,7 @@ t_object	*set_world(t_setting *set)
 		}
 		set_t = set_t->next;
 	}
+	return (world);
 }
 
 t_map	*map_init2(t_setting *set)
@@ -424,7 +425,7 @@ t_base	*base_init(t_canvas canvas)
 {
 	t_base	*base;
 
-	base = (t_base *)ft_calloc(sizeof(t_base));
+	base = (t_base *)malloc(sizeof(t_base));
 	if (!base)
 	{
 		printf("malloc error\n");
